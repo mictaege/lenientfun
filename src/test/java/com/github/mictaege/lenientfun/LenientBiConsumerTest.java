@@ -82,8 +82,19 @@ public class LenientBiConsumerTest {
         feedLenientBiConsumer(value0, value1, consumerOne.andThen(consumerTwo));
     }
 
-    @Test(expected = FunctionalRuntimeException.class)
+    @Test
     public void shouldAdaptLenientBiConsumer() {
+        feedJavaBiConsumer(value0, value1, lenient((v0, v1) -> {
+            v0.size();
+            v1.size();
+        }));
+
+        verify(value0).size();
+        verify(value1).size();
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldAdaptThrowingLenientBiConsumer() {
         feedJavaBiConsumer(value0, value1, lenient((v0, v1) -> {
             throw new Exception();
         }));

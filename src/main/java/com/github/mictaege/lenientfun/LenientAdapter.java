@@ -1,6 +1,7 @@
 package com.github.mictaege.lenientfun;
 
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -14,6 +15,16 @@ public final class LenientAdapter {
         return (t, u) -> {
             try {
                 lenient.accept(t, u);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
+    public static <T, U, R> BiFunction<T, U, R> apply(final LenientBiFunction<T, U, R> lenient) {
+        return (t, u) -> {
+            try {
+                return lenient.apply(t, u);
             } catch (final Exception e) {
                 throw new FunctionalRuntimeException(e);
             }

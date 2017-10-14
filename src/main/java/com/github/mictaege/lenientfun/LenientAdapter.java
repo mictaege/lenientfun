@@ -2,6 +2,7 @@ package com.github.mictaege.lenientfun;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 public final class LenientAdapter {
 
@@ -9,7 +10,17 @@ public final class LenientAdapter {
         super();
     }
 
-    public static <T> Consumer<T> lenient(final LenientConsumer<T> lenient) {
+    public static <T, U> BiConsumer<T, U> accept(final LenientBiConsumer<T, U> lenient) {
+        return (t, u) -> {
+            try {
+                lenient.accept(t, u);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
+    public static <T> Consumer<T> accept(final LenientConsumer<T> lenient) {
         return t -> {
             try {
                 lenient.accept(t);
@@ -19,10 +30,10 @@ public final class LenientAdapter {
         };
     }
 
-    public static <T, U> BiConsumer<T, U> lenient(final LenientBiConsumer<T, U> lenient) {
-        return (t, u) -> {
+    public static <T, R> Function<T, R> apply(final LenientFunction<T, R> lenient) {
+        return t -> {
             try {
-                lenient.accept(t, u);
+                return lenient.apply(t);
             } catch (final Exception e) {
                 throw new FunctionalRuntimeException(e);
             }

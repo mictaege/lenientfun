@@ -52,19 +52,19 @@ public class LenientBinaryOperatorTest {
 
     @Test
     public void shouldChainBinaryOperator() {
-        final LenientBinaryOperator<List> functionOne = (v0, v1) -> {
+        final LenientBinaryOperator<List> operatorOne = (v0, v1) -> {
             final List sum = new ArrayList();
             sum.add(v0.size());
             sum.add(v1.size());
             return sum;
         };
-        final LenientFunction<List, List> functionTwo = v -> {
+        final LenientFunction<List, List> operatorTwo = v -> {
             final List sum = new ArrayList();
             sum.add(v.size());
             return sum;
         };
 
-        feedLenientBiFunction(value0, value1, functionOne.andThen(functionTwo));
+        feedLenientBiFunction(value0, value1, operatorOne.andThen(operatorTwo));
 
         verify(value0).size();
         verify(value1).size();
@@ -72,27 +72,27 @@ public class LenientBinaryOperatorTest {
 
     @Test(expected = FunctionalRuntimeException.class)
     public void shouldHandleExceptionInFirstChainedBinaryOperator() {
-        final LenientBinaryOperator<List> functionOne = (v0, v1) -> { throw new Exception(); };
-        final LenientFunction<List, List> functionTwo = v -> {
+        final LenientBinaryOperator<List> operatorOne = (v0, v1) -> { throw new Exception(); };
+        final LenientFunction<List, List> operatorTwo = v -> {
             final List sum = new ArrayList();
             sum.add(v.size());
             return sum;
         };
 
-        feedLenientBiFunction(value0, value1, functionOne.andThen(functionTwo));
+        feedLenientBiFunction(value0, value1, operatorOne.andThen(operatorTwo));
     }
 
     @Test(expected = FunctionalRuntimeException.class)
     public void shouldHandleExceptionInSecondChainedBinaryOperator() {
-        final LenientBinaryOperator<List> functionOne = (v0, v1) -> {
+        final LenientBinaryOperator<List> operatorOne = (v0, v1) -> {
             final List sum = new ArrayList();
             sum.add(v0.size());
             sum.add(v1.size());
             return sum;
         };
-        final LenientFunction<List, List> functionTwo = v -> { throw new Exception(); };
+        final LenientFunction<List, List> operatorTwo = v -> { throw new Exception(); };
 
-        feedLenientBiFunction(value0, value1, functionOne.andThen(functionTwo));
+        feedLenientBiFunction(value0, value1, operatorOne.andThen(operatorTwo));
     }
 
     @Test

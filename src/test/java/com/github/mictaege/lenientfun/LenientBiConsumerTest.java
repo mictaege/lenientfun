@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+import static com.github.mictaege.lenientfun.LenientAdapter.biConsumer;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -83,7 +84,7 @@ public class LenientBiConsumerTest {
 
     @Test
     public void shouldAdaptLenientBiConsumer() {
-        feedJavaBiConsumer(value0, value1, LenientAdapter.biConsumer((v0, v1) -> {
+        feedJavaBiConsumer(value0, value1, biConsumer((v0, v1) -> {
             v0.size();
             v1.size();
         }));
@@ -94,7 +95,7 @@ public class LenientBiConsumerTest {
 
     @Test(expected = FunctionalRuntimeException.class)
     public void shouldAdaptThrowingLenientBiConsumer() {
-        feedJavaBiConsumer(value0, value1, LenientAdapter.biConsumer((v0, v1) -> {
+        feedJavaBiConsumer(value0, value1, biConsumer((v0, v1) -> {
             throw new Exception();
         }));
     }

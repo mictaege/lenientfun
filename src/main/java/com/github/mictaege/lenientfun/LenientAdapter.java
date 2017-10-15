@@ -38,6 +38,16 @@ public final class LenientAdapter {
         };
     }
 
+    public static <T, U> BiPredicate<T, U> biPredicate(final LenientBiPredicate<T, U> lenient) {
+        return (t, u) -> {
+            try {
+                return lenient.test(t, u);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
     public static <T> Consumer<T> consumer(final LenientConsumer<T> lenient) {
         return t -> {
             try {

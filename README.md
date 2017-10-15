@@ -1,6 +1,3 @@
-[![Apache License 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
-[![Build Status](https://travis-ci.org/mictaege/lenientfun.svg?branch=develop)](https://travis-ci.org/mictaege/lenientfun)
-
 # lenientfun
 
 [![Apache License 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)

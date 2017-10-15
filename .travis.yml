@@ -5,3 +5,8 @@ jdk:
 
 script:
   gradle clean test
+
+branches:
+  only:
+    - master
+    - develop

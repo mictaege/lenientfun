@@ -7,7 +7,6 @@ import org.mockito.Mock;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-import static com.github.mictaege.lenientfun.LenientAdapter.accept;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -42,7 +41,7 @@ public class LenientBiConsumerTest {
     }
 
     @Test
-    public void shouldChainConsumers() {
+    public void shouldChainBiConsumers() {
         final LenientBiConsumer<List, List> consumerOne = (v0, v1) -> {
             v0.size();
             v1.size();
@@ -61,7 +60,7 @@ public class LenientBiConsumerTest {
     }
 
     @Test(expected = FunctionalRuntimeException.class)
-    public void shouldHandleExceptionInFirstChainedConsumer() {
+    public void shouldHandleExceptionInFirstChainedBiConsumer() {
         final LenientBiConsumer<List, List> consumerOne = (v0, v1) -> { throw new Exception(); };
         final LenientBiConsumer<List, List> consumerTwo = (v0, v1) -> {
             v0.isEmpty();
@@ -72,7 +71,7 @@ public class LenientBiConsumerTest {
     }
 
     @Test(expected = FunctionalRuntimeException.class)
-    public void shouldHandleExceptionInSecondChainedConsumer() {
+    public void shouldHandleExceptionInSecondChainedBiConsumer() {
         final LenientBiConsumer<List, List> consumerOne = (v0, v1) -> {
             v0.size();
             v1.size();
@@ -84,7 +83,7 @@ public class LenientBiConsumerTest {
 
     @Test
     public void shouldAdaptLenientBiConsumer() {
-        feedJavaBiConsumer(value0, value1, LenientAdapter.accept((v0, v1) -> {
+        feedJavaBiConsumer(value0, value1, LenientAdapter.biConsumer((v0, v1) -> {
             v0.size();
             v1.size();
         }));
@@ -95,7 +94,7 @@ public class LenientBiConsumerTest {
 
     @Test(expected = FunctionalRuntimeException.class)
     public void shouldAdaptThrowingLenientBiConsumer() {
-        feedJavaBiConsumer(value0, value1, LenientAdapter.accept((v0, v1) -> {
+        feedJavaBiConsumer(value0, value1, LenientAdapter.biConsumer((v0, v1) -> {
             throw new Exception();
         }));
     }

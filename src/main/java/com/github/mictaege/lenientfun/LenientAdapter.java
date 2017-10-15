@@ -1,9 +1,6 @@
 package com.github.mictaege.lenientfun;
 
-import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
-import java.util.function.Consumer;
-import java.util.function.Function;
+import java.util.function.*;
 
 public final class LenientAdapter {
 
@@ -11,7 +8,7 @@ public final class LenientAdapter {
         super();
     }
 
-    public static <T, U> BiConsumer<T, U> accept(final LenientBiConsumer<T, U> lenient) {
+    public static <T, U> BiConsumer<T, U> biConsumer(final LenientBiConsumer<T, U> lenient) {
         return (t, u) -> {
             try {
                 lenient.accept(t, u);
@@ -21,7 +18,7 @@ public final class LenientAdapter {
         };
     }
 
-    public static <T, U, R> BiFunction<T, U, R> apply(final LenientBiFunction<T, U, R> lenient) {
+    public static <T, U, R> BiFunction<T, U, R> biFunction(final LenientBiFunction<T, U, R> lenient) {
         return (t, u) -> {
             try {
                 return lenient.apply(t, u);
@@ -31,7 +28,17 @@ public final class LenientAdapter {
         };
     }
 
-    public static <T> Consumer<T> accept(final LenientConsumer<T> lenient) {
+    public static <T> BinaryOperator<T> binOperator(final LenientBinaryOperator<T> lenient) {
+        return (t, u) -> {
+            try {
+                return lenient.apply(t, u);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
+    public static <T> Consumer<T> consumer(final LenientConsumer<T> lenient) {
         return t -> {
             try {
                 lenient.accept(t);
@@ -41,7 +48,7 @@ public final class LenientAdapter {
         };
     }
 
-    public static <T, R> Function<T, R> apply(final LenientFunction<T, R> lenient) {
+    public static <T, R> Function<T, R> function(final LenientFunction<T, R> lenient) {
         return t -> {
             try {
                 return lenient.apply(t);

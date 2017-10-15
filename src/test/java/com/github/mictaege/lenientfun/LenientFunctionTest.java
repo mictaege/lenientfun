@@ -10,7 +10,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Function;
 
-import static com.github.mictaege.lenientfun.LenientAdapter.apply;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -108,14 +107,14 @@ public class LenientFunctionTest {
 
     @Test
     public void shouldAdaptLenientFunction() {
-        feedJavaFunction(value, apply(List::iterator));
+        feedJavaFunction(value, LenientAdapter.function(List::iterator));
 
         verify(value).iterator();
     }
 
     @Test(expected = FunctionalRuntimeException.class)
     public void shouldAdaptThrowingLenientFunction() {
-        feedJavaFunction(value, apply(v -> {
+        feedJavaFunction(value, LenientAdapter.function(v -> {
                 throw new Exception();
         }));
     }

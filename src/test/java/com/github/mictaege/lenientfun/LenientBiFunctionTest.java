@@ -4,17 +4,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.function.BiFunction;
 
-import static com.github.mictaege.lenientfun.LenientAdapter.apply;
+import static com.github.mictaege.lenientfun.LenientAdapter.biFunction;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class LenientBiFunctionTest {
@@ -64,7 +61,7 @@ public class LenientBiFunctionTest {
     }
 
     @Test(expected = FunctionalRuntimeException.class)
-    public void shouldHandleExceptionInSecondChainedFunction() {
+    public void shouldHandleExceptionInSecondChainedBiFunction() {
         final LenientBiFunction<List, List, Integer> functionOne = (v0, v1) -> v0.size() + v1.size();
         final LenientFunction<Integer, Integer> functionTwo = v -> { throw new Exception(); };
 
@@ -72,16 +69,16 @@ public class LenientBiFunctionTest {
     }
 
     @Test
-    public void shouldAdaptLenientFunction() {
-        feedJavaBiFunction(value0, value1, apply((v0, v1) -> v0.size() + v1.size()));
+    public void shouldAdaptLenientBiFunction() {
+        feedJavaBiFunction(value0, value1, biFunction((v0, v1) -> v0.size() + v1.size()));
 
         verify(value0).size();
         verify(value1).size();
     }
 
     @Test(expected = FunctionalRuntimeException.class)
-    public void shouldAdaptThrowingLenientFunction() {
-        feedJavaBiFunction(value0, value1, apply((v0, v1) -> {
+    public void shouldAdaptThrowingLenientBiFunction() {
+        feedJavaBiFunction(value0, value1, biFunction((v0, v1) -> {
                 throw new Exception();
         }));
     }

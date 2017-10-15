@@ -7,7 +7,6 @@ import org.mockito.Mock;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static com.github.mictaege.lenientfun.LenientAdapter.accept;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -64,14 +63,14 @@ public class LenientConsumerTest {
 
     @Test
     public void shouldAdaptLenientConsumer() {
-        feedJavaConsumer(value, accept(List::size));
+        feedJavaConsumer(value, LenientAdapter.consumer(List::size));
 
         verify(value).size();
     }
 
     @Test(expected = FunctionalRuntimeException.class)
     public void shouldAdaptThrowingLenientConsumer() {
-        feedJavaConsumer(value, accept(v -> {
+        feedJavaConsumer(value, LenientAdapter.consumer(v -> {
             throw new Exception();
         }));
     }

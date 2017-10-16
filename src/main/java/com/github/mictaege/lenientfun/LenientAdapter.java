@@ -88,6 +88,16 @@ public final class LenientAdapter {
         };
     }
 
+    public static <R> DoubleFunction<R> doubleFunction(final LenientDoubleFunction<R> lenient) {
+        return d -> {
+            try {
+                return lenient.apply(d);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
     public static <T, R> Function<T, R> function(final LenientFunction<T, R> lenient) {
         return t -> {
             try {

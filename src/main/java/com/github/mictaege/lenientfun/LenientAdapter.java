@@ -118,6 +118,16 @@ public final class LenientAdapter {
         };
     }
 
+    public static DoubleToIntFunction doubleToIntFunction(final LenientDoubleToIntFunction lenient) {
+        return d -> {
+            try {
+                return lenient.applyAsInt(d);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
     public static <T, R> Function<T, R> function(final LenientFunction<T, R> lenient) {
         return t -> {
             try {

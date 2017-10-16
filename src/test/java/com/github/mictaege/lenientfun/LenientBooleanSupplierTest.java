@@ -36,14 +36,14 @@ public class LenientBooleanSupplierTest {
     }
 
     @Test
-    public void shouldAdaptLenientConsumer() {
+    public void shouldAdaptLenientSupplier() {
         askJavaBooleanSupplier(booleanSupplier(() -> value.isEmpty()));
 
         verify(value).isEmpty();
     }
 
     @Test(expected = FunctionalRuntimeException.class)
-    public void shouldAdaptThrowingLenientConsumer() {
+    public void shouldAdaptThrowingLenientSupplier() {
         askJavaBooleanSupplier(booleanSupplier(() -> {
             throw new Exception();
         }));

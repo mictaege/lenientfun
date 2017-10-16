@@ -31,7 +31,7 @@ public class LenientBinaryOperatorTest {
     }
 
     @Test
-    public void shouldAcceptBiFunction() {
+    public void shouldAcceptBinaryOperator() {
         feedLenientBinaryOperator(value0, value1, (v0, v1) -> {
             final List sum = new ArrayList();
             sum.add(v0.size());

@@ -98,6 +98,16 @@ public final class LenientAdapter {
         };
     }
 
+    public static DoublePredicate doublePredicate(final LenientDoublePredicate lenient) {
+        return d -> {
+            try {
+                return lenient.test(d);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
     public static <T, R> Function<T, R> function(final LenientFunction<T, R> lenient) {
         return t -> {
             try {

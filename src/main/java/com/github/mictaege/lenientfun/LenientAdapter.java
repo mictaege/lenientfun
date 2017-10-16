@@ -48,6 +48,16 @@ public final class LenientAdapter {
         };
     }
 
+    public static BooleanSupplier booleanSupplier(final LenientBooleanSupplier lenient) {
+        return () -> {
+            try {
+                return lenient.getAsBoolean();
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
     public static <T> Consumer<T> consumer(final LenientConsumer<T> lenient) {
         return t -> {
             try {

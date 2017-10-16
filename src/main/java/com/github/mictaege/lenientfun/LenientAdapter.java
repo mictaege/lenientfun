@@ -78,6 +78,16 @@ public final class LenientAdapter {
         };
     }
 
+    public static DoubleConsumer doubleConsumer(final LenientDoubleConsumer lenient) {
+        return d -> {
+            try {
+                lenient.accept(d);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
     public static <T, R> Function<T, R> function(final LenientFunction<T, R> lenient) {
         return t -> {
             try {

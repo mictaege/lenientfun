@@ -108,6 +108,16 @@ public final class LenientAdapter {
         };
     }
 
+    public static DoubleSupplier doubleSupplier(final LenientDoubleSupplier lenient) {
+        return () -> {
+            try {
+                return lenient.getAsDouble();
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
     public static <T, R> Function<T, R> function(final LenientFunction<T, R> lenient) {
         return t -> {
             try {

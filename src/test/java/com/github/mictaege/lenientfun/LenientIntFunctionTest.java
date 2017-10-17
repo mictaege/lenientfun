@@ -5,18 +5,18 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import java.util.List;
-import java.util.function.DoubleFunction;
+import java.util.function.IntFunction;
 
-import static com.github.mictaege.lenientfun.LenientAdapter.doubleFunc;
+import static com.github.mictaege.lenientfun.LenientAdapter.intFunc;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class LenientDoubleFunctionTest {
+public class LenientIntFunctionTest {
 
     @Mock
-    private List<Double> value0;
+    private List<Integer> value0;
     @Mock
-    private List<Double> value1;
+    private List<Integer> value1;
 
     @Before
     public void before() {
@@ -25,33 +25,33 @@ public class LenientDoubleFunctionTest {
 
     @Test
     public void shouldAcceptFunction() {
-        feedLenientDoubleFunction(5.0, d -> value0.add(d));
+        feedLenientIntFunction(5, i -> value0.add(i));
 
-        verify(value0).add(5.0);
+        verify(value0).add(5);
     }
 
     @Test(expected = FunctionalRuntimeException.class)
     public void shouldHandleRaisedException() {
-        feedLenientDoubleFunction(5.0, d -> {
+        feedLenientIntFunction(5, i -> {
             throw new Exception();
         });
     }
 
     @Test
     public void shouldAdaptLenientFunction() {
-        feedJavaDoubleFunction(5.0, doubleFunc(d -> value0.add(d)));
+        feedJavaIntFunction(5, intFunc(i -> value0.add(i)));
 
-        verify(value0).add(5.0);
+        verify(value0).add(5);
     }
 
     @Test(expected = FunctionalRuntimeException.class)
     public void shouldAdaptThrowingLenientFunction() {
-        feedJavaDoubleFunction(5.0, doubleFunc(d -> {
+        feedJavaIntFunction(5, intFunc(i -> {
             throw new Exception();
         }));
     }
 
-    private <R> R feedLenientDoubleFunction(final double value, final LenientDoubleFunction<R> function) {
+    private <R> R feedLenientIntFunction(final int value, final LenientIntFunction<R> function) {
         try {
             return function.apply(value);
         } catch (final Exception e) {
@@ -59,7 +59,7 @@ public class LenientDoubleFunctionTest {
         }
     }
 
-    private <R> R feedJavaDoubleFunction(final double value, final DoubleFunction<R> function) {
+    private <R> R feedJavaIntFunction(final int value, final IntFunction<R> function) {
         return function.apply(value);
     }
 

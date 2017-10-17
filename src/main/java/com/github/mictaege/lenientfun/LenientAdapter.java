@@ -178,4 +178,14 @@ public final class LenientAdapter {
         };
     }
 
+    public static <R> IntFunction<R> intFunc(final LenientIntFunction<R> lenient) {
+        return i -> {
+            try {
+                return lenient.apply(i);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
 }

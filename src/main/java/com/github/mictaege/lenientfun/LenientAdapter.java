@@ -1,6 +1,29 @@
 package com.github.mictaege.lenientfun;
 
-import java.util.function.*;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
+import java.util.function.BinaryOperator;
+import java.util.function.BooleanSupplier;
+import java.util.function.Consumer;
+import java.util.function.DoubleBinaryOperator;
+import java.util.function.DoubleConsumer;
+import java.util.function.DoubleFunction;
+import java.util.function.DoublePredicate;
+import java.util.function.DoubleSupplier;
+import java.util.function.DoubleToIntFunction;
+import java.util.function.DoubleToLongFunction;
+import java.util.function.DoubleUnaryOperator;
+import java.util.function.Function;
+import java.util.function.IntBinaryOperator;
+import java.util.function.IntConsumer;
+import java.util.function.IntFunction;
+import java.util.function.IntPredicate;
+import java.util.function.IntSupplier;
+import java.util.function.IntToDoubleFunction;
+import java.util.function.IntToLongFunction;
+import java.util.function.IntUnaryOperator;
+import java.util.function.LongBinaryOperator;
 
 public final class LenientAdapter {
 
@@ -232,6 +255,16 @@ public final class LenientAdapter {
         return i -> {
             try {
                 return lenient.applyAsInt(i);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
+    public static LongBinaryOperator longBinOp(final LenientLongBinaryOperator lenient) {
+        return (l, r) -> {
+            try {
+                return lenient.applyAsLong(l, r);
             } catch (final Exception e) {
                 throw new FunctionalRuntimeException(e);
             }

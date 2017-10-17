@@ -128,6 +128,16 @@ public final class LenientAdapter {
         };
     }
 
+    public static DoubleToLongFunction doubleToLongFunction(final LenientDoubleToLongFunction lenient) {
+        return d -> {
+            try {
+                return lenient.applyAsLong(d);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
     public static <T, R> Function<T, R> function(final LenientFunction<T, R> lenient) {
         return t -> {
             try {

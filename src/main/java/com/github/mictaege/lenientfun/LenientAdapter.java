@@ -198,4 +198,14 @@ public final class LenientAdapter {
         };
     }
 
+    public static IntSupplier intSupplier(final LenientIntSupplier lenient) {
+        return () -> {
+            try {
+                return lenient.getAsInt();
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
 }

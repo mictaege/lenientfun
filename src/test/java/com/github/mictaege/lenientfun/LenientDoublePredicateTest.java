@@ -5,10 +5,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import java.util.List;
-import java.util.function.BiPredicate;
 import java.util.function.DoublePredicate;
 
-import static com.github.mictaege.lenientfun.LenientAdapter.biPredicate;
 import static com.github.mictaege.lenientfun.LenientAdapter.doublePredicate;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;

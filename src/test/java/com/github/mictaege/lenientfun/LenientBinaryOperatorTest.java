@@ -5,11 +5,10 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.function.BinaryOperator;
 
-import static com.github.mictaege.lenientfun.LenientAdapter.binOperator;
+import static com.github.mictaege.lenientfun.LenientAdapter.binOp;
 import static com.github.mictaege.lenientfun.LenientBinaryOperator.maxBy;
 import static com.github.mictaege.lenientfun.LenientBinaryOperator.minBy;
 import static java.util.Comparator.comparingInt;
@@ -113,7 +112,7 @@ public class LenientBinaryOperatorTest {
 
     @Test
     public void shouldAdaptLenientBinaryOperator() {
-        feedJavaBinaryOperator(value0, value1, binOperator((v0, v1) -> {
+        feedJavaBinaryOperator(value0, value1, binOp((v0, v1) -> {
             final List sum = new ArrayList();
             sum.add(v0.size());
             sum.add(v1.size());
@@ -126,7 +125,7 @@ public class LenientBinaryOperatorTest {
 
     @Test(expected = FunctionalRuntimeException.class)
     public void shouldAdaptThrowingLenientBinaryOperator() {
-        feedJavaBinaryOperator(value0, value1, binOperator((v0, v1) -> {
+        feedJavaBinaryOperator(value0, value1, binOp((v0, v1) -> {
                 throw new Exception();
         }));
     }

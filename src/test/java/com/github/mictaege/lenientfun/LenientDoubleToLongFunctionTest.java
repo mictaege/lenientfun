@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import java.util.function.DoubleToLongFunction;
 
-import static com.github.mictaege.lenientfun.LenientAdapter.doubleToLongFunction;
+import static com.github.mictaege.lenientfun.LenientAdapter.doubleToLongFunc;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -26,14 +26,14 @@ public class LenientDoubleToLongFunctionTest {
 
     @Test
     public void shouldAdaptLenientFunction() {
-        final long result = feedJavaDoubleToLongFunction(5.0, doubleToLongFunction(d -> ((Double)d).longValue()));
+        final long result = feedJavaDoubleToLongFunction(5.0, doubleToLongFunc(d -> ((Double)d).longValue()));
 
         assertThat(result, is(5L));
     }
 
     @Test(expected = FunctionalRuntimeException.class)
     public void shouldAdaptThrowingLenientFunction() {
-        feedJavaDoubleToLongFunction(5.0, doubleToLongFunction(d -> {
+        feedJavaDoubleToLongFunction(5.0, doubleToLongFunc(d -> {
                 throw new Exception();
         }));
     }

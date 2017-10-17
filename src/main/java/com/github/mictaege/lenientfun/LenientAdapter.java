@@ -18,7 +18,7 @@ public final class LenientAdapter {
         };
     }
 
-    public static <T, U, R> BiFunction<T, U, R> biFunction(final LenientBiFunction<T, U, R> lenient) {
+    public static <T, U, R> BiFunction<T, U, R> biFunc(final LenientBiFunction<T, U, R> lenient) {
         return (t, u) -> {
             try {
                 return lenient.apply(t, u);
@@ -28,7 +28,7 @@ public final class LenientAdapter {
         };
     }
 
-    public static <T> BinaryOperator<T> binOperator(final LenientBinaryOperator<T> lenient) {
+    public static <T> BinaryOperator<T> binOp(final LenientBinaryOperator<T> lenient) {
         return (t, u) -> {
             try {
                 return lenient.apply(t, u);
@@ -48,7 +48,7 @@ public final class LenientAdapter {
         };
     }
 
-    public static BooleanSupplier booleanSupplier(final LenientBooleanSupplier lenient) {
+    public static BooleanSupplier boolSupplier(final LenientBooleanSupplier lenient) {
         return () -> {
             try {
                 return lenient.getAsBoolean();
@@ -68,7 +68,7 @@ public final class LenientAdapter {
         };
     }
 
-    public static DoubleBinaryOperator doubleBinOperator(final LenientDoubleBinaryOperator lenient) {
+    public static DoubleBinaryOperator doubleBinOp(final LenientDoubleBinaryOperator lenient) {
         return (l, r) -> {
             try {
                 return lenient.applyAsDouble(l, r);
@@ -88,7 +88,7 @@ public final class LenientAdapter {
         };
     }
 
-    public static <R> DoubleFunction<R> doubleFunction(final LenientDoubleFunction<R> lenient) {
+    public static <R> DoubleFunction<R> doubleFunc(final LenientDoubleFunction<R> lenient) {
         return d -> {
             try {
                 return lenient.apply(d);
@@ -118,7 +118,7 @@ public final class LenientAdapter {
         };
     }
 
-    public static DoubleToIntFunction doubleToIntFunction(final LenientDoubleToIntFunction lenient) {
+    public static DoubleToIntFunction doubleToIntFunc(final LenientDoubleToIntFunction lenient) {
         return d -> {
             try {
                 return lenient.applyAsInt(d);
@@ -128,7 +128,7 @@ public final class LenientAdapter {
         };
     }
 
-    public static DoubleToLongFunction doubleToLongFunction(final LenientDoubleToLongFunction lenient) {
+    public static DoubleToLongFunction doubleToLongFunc(final LenientDoubleToLongFunction lenient) {
         return d -> {
             try {
                 return lenient.applyAsLong(d);
@@ -138,7 +138,17 @@ public final class LenientAdapter {
         };
     }
 
-    public static <T, R> Function<T, R> function(final LenientFunction<T, R> lenient) {
+    public static DoubleUnaryOperator doubleUnaryOp(final LenientDoubleUnaryOperator lenient) {
+        return d -> {
+            try {
+                return lenient.applyAsDouble(d);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
+    public static <T, R> Function<T, R> func(final LenientFunction<T, R> lenient) {
         return t -> {
             try {
                 return lenient.apply(t);

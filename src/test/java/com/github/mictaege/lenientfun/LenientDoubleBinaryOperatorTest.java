@@ -1,20 +1,13 @@
 package com.github.mictaege.lenientfun;
 
-import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 
-import java.util.List;
-import java.util.function.BooleanSupplier;
 import java.util.function.DoubleBinaryOperator;
 
-import static com.github.mictaege.lenientfun.LenientAdapter.booleanSupplier;
-import static com.github.mictaege.lenientfun.LenientAdapter.doubleBinOperator;
+import static com.github.mictaege.lenientfun.LenientAdapter.doubleBinOp;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class LenientDoubleBinaryOperatorTest {
@@ -39,15 +32,15 @@ public class LenientDoubleBinaryOperatorTest {
     }
 
     @Test
-    public void shouldAdaptLenientConsumer() {
-        final double result = feedJavaDoubleBinaryOperator(1.0, 2.0, doubleBinOperator((l, r) -> l + r));
+    public void shouldAdaptLenientOperator() {
+        final double result = feedJavaDoubleBinaryOperator(1.0, 2.0, doubleBinOp((l, r) -> l + r));
 
         assertThat(result, is(3.0));
     }
 
     @Test(expected = FunctionalRuntimeException.class)
-    public void shouldAdaptThrowingLenientConsumer() {
-        feedJavaDoubleBinaryOperator(1.0, 2.0, doubleBinOperator((l, r) -> {
+    public void shouldAdaptThrowingLenientOperator() {
+        feedJavaDoubleBinaryOperator(1.0, 2.0, doubleBinOp((l, r) -> {
             throw new Exception();
         }));
     }

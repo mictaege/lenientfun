@@ -5,10 +5,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import java.util.List;
-import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
-import static com.github.mictaege.lenientfun.LenientAdapter.booleanSupplier;
 import static com.github.mictaege.lenientfun.LenientAdapter.doubleSupplier;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;

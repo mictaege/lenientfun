@@ -7,10 +7,7 @@ import org.mockito.Mock;
 import java.util.List;
 import java.util.function.BiFunction;
 
-import static com.github.mictaege.lenientfun.LenientAdapter.biFunction;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
+import static com.github.mictaege.lenientfun.LenientAdapter.biFunc;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -70,7 +67,7 @@ public class LenientBiFunctionTest {
 
     @Test
     public void shouldAdaptLenientBiFunction() {
-        feedJavaBiFunction(value0, value1, biFunction((v0, v1) -> v0.size() + v1.size()));
+        feedJavaBiFunction(value0, value1, biFunc((v0, v1) -> v0.size() + v1.size()));
 
         verify(value0).size();
         verify(value1).size();
@@ -78,7 +75,7 @@ public class LenientBiFunctionTest {
 
     @Test(expected = FunctionalRuntimeException.class)
     public void shouldAdaptThrowingLenientBiFunction() {
-        feedJavaBiFunction(value0, value1, biFunction((v0, v1) -> {
+        feedJavaBiFunction(value0, value1, biFunc((v0, v1) -> {
                 throw new Exception();
         }));
     }

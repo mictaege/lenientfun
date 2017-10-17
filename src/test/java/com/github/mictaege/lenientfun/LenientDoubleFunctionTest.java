@@ -5,11 +5,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import java.util.List;
-import java.util.function.DoubleConsumer;
 import java.util.function.DoubleFunction;
 
-import static com.github.mictaege.lenientfun.LenientAdapter.doubleConsumer;
-import static com.github.mictaege.lenientfun.LenientAdapter.doubleFunction;
+import static com.github.mictaege.lenientfun.LenientAdapter.doubleFunc;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -41,14 +39,14 @@ public class LenientDoubleFunctionTest {
 
     @Test
     public void shouldAdaptLenientFunction() {
-        feedJavaDoubleFunction(5.0, doubleFunction(d -> value0.add(d)));
+        feedJavaDoubleFunction(5.0, doubleFunc(d -> value0.add(d)));
 
         verify(value0).add(5.0);
     }
 
     @Test(expected = FunctionalRuntimeException.class)
     public void shouldAdaptThrowingLenientConsumer() {
-        feedJavaDoubleFunction(5.0, doubleFunction(d -> {
+        feedJavaDoubleFunction(5.0, doubleFunc(d -> {
             throw new Exception();
         }));
     }

@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import java.util.function.DoubleToIntFunction;
 
-import static com.github.mictaege.lenientfun.LenientAdapter.doubleToIntFunction;
+import static com.github.mictaege.lenientfun.LenientAdapter.doubleToIntFunc;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -26,14 +26,14 @@ public class LenientDoubleToIntFunctionTest {
 
     @Test
     public void shouldAdaptLenientFunction() {
-        final int result = feedJavaDoubleToIntFunction(5.0, doubleToIntFunction(d -> ((Double)d).intValue()));
+        final int result = feedJavaDoubleToIntFunction(5.0, doubleToIntFunc(d -> ((Double)d).intValue()));
 
         assertThat(result, is(5));
     }
 
     @Test(expected = FunctionalRuntimeException.class)
     public void shouldAdaptThrowingLenientFunction() {
-        feedJavaDoubleToIntFunction(5.0, doubleToIntFunction(d -> {
+        feedJavaDoubleToIntFunction(5.0, doubleToIntFunc(d -> {
                 throw new Exception();
         }));
     }

@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import java.util.List;
-import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 
 import static com.github.mictaege.lenientfun.LenientAdapter.biPredicate;

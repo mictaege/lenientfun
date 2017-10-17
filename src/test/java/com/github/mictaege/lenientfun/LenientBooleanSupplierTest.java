@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import java.util.List;
 import java.util.function.BooleanSupplier;
 
-import static com.github.mictaege.lenientfun.LenientAdapter.booleanSupplier;
+import static com.github.mictaege.lenientfun.LenientAdapter.boolSupplier;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -37,14 +37,14 @@ public class LenientBooleanSupplierTest {
 
     @Test
     public void shouldAdaptLenientSupplier() {
-        askJavaBooleanSupplier(booleanSupplier(() -> value.isEmpty()));
+        askJavaBooleanSupplier(boolSupplier(() -> value.isEmpty()));
 
         verify(value).isEmpty();
     }
 
     @Test(expected = FunctionalRuntimeException.class)
     public void shouldAdaptThrowingLenientSupplier() {
-        askJavaBooleanSupplier(booleanSupplier(() -> {
+        askJavaBooleanSupplier(boolSupplier(() -> {
             throw new Exception();
         }));
     }

@@ -26,6 +26,7 @@ import java.util.function.IntUnaryOperator;
 import java.util.function.LongBinaryOperator;
 import java.util.function.LongConsumer;
 import java.util.function.LongFunction;
+import java.util.function.LongPredicate;
 
 public final class LenientAdapter {
 
@@ -287,6 +288,16 @@ public final class LenientAdapter {
         return l -> {
             try {
                 return lenient.apply(l);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
+    public static LongPredicate longPredicate(final LenientLongPredicate lenient) {
+        return l -> {
+            try {
+                return lenient.test(l);
             } catch (final Exception e) {
                 throw new FunctionalRuntimeException(e);
             }

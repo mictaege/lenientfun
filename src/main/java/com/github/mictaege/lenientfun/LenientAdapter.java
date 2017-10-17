@@ -28,6 +28,7 @@ import java.util.function.LongConsumer;
 import java.util.function.LongFunction;
 import java.util.function.LongPredicate;
 import java.util.function.LongSupplier;
+import java.util.function.LongToDoubleFunction;
 
 public final class LenientAdapter {
 
@@ -309,6 +310,16 @@ public final class LenientAdapter {
         return () -> {
             try {
                 return lenient.getAsLong();
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
+    public static LongToDoubleFunction longToDoubleFunc(final LenientLongToDoubleFunction lenient) {
+        return l -> {
+            try {
+                return lenient.applyAsDouble(l);
             } catch (final Exception e) {
                 throw new FunctionalRuntimeException(e);
             }

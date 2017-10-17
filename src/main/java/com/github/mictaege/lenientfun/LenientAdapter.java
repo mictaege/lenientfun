@@ -228,4 +228,14 @@ public final class LenientAdapter {
         };
     }
 
+    public static IntUnaryOperator intUnaryOp(final LenientIntUnaryOperator lenient) {
+        return i -> {
+            try {
+                return lenient.applyAsInt(i);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
 }

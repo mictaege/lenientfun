@@ -19,9 +19,9 @@ public class LenientIntUnaryOperatorTest {
 
     @Test
     public void shouldAcceptUnaryOperator() {
-        final double result = feedLenientIntUnaryOperator(1, v -> v * 2);
+        final int result = feedLenientIntUnaryOperator(1, v -> v * 2);
 
-        assertThat(result, is(2.0));
+        assertThat(result, is(2));
     }
 
     @Test(expected = FunctionalRuntimeException.class)
@@ -36,9 +36,9 @@ public class LenientIntUnaryOperatorTest {
         final LenientIntUnaryOperator functionOne = v -> v * 2;
         final LenientIntUnaryOperator functionTwo = v -> v * 3;
 
-        final double result = feedLenientIntUnaryOperator(1, functionOne.compose(functionTwo));
+        final int result = feedLenientIntUnaryOperator(1, functionOne.compose(functionTwo));
 
-        assertThat(result, is(6.0));
+        assertThat(result, is(6));
     }
 
     @Test(expected = FunctionalRuntimeException.class)
@@ -62,9 +62,9 @@ public class LenientIntUnaryOperatorTest {
         final LenientIntUnaryOperator functionOne = v -> v * 2;
         final LenientIntUnaryOperator functionTwo = v -> v * 3;
 
-        final double result = feedLenientIntUnaryOperator(1, functionOne.andThen(functionTwo));
+        final int result = feedLenientIntUnaryOperator(1, functionOne.andThen(functionTwo));
 
-        assertThat(result, is(6.0));
+        assertThat(result, is(6));
     }
 
     @Test(expected = FunctionalRuntimeException.class)

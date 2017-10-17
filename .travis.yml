@@ -8,6 +8,9 @@ addons:
     organization: "mictaege-github"
     token:
       secure: SONAR_TOKEN
+    branches:
+      - master
+      - develop
 
 branches:
   only:

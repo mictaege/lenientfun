@@ -208,4 +208,14 @@ public final class LenientAdapter {
         };
     }
 
+    public static IntToDoubleFunction intToDoubleFunc(final LenientIntToDoubleFunction lenient) {
+        return i -> {
+            try {
+                return lenient.applyAsDouble(i);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
 }

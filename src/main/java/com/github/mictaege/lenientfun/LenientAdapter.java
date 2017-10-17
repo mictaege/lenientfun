@@ -158,4 +158,14 @@ public final class LenientAdapter {
         };
     }
 
+    public static IntBinaryOperator intBinOp(final LenientIntBinaryOperator lenient) {
+        return (l, r) -> {
+            try {
+                return lenient.applyAsInt(l, r);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
 }

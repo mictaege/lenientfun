@@ -188,4 +188,14 @@ public final class LenientAdapter {
         };
     }
 
+    public static IntPredicate intPredicate(final LenientIntPredicate lenient) {
+        return i -> {
+            try {
+                return lenient.test(i);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
 }

@@ -218,4 +218,14 @@ public final class LenientAdapter {
         };
     }
 
+    public static IntToLongFunction intToLongFunc(final LenientIntToLongFunction lenient) {
+        return i -> {
+            try {
+                return lenient.applyAsLong(i);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
 }

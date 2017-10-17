@@ -46,7 +46,7 @@ public class LenientDoubleToIntFunctionTest {
         }
     }
 
-    private int feedJavaDoubleToIntFunction(final double value, DoubleToIntFunction function) {
+    private int feedJavaDoubleToIntFunction(final double value, final DoubleToIntFunction function) {
         return function.applyAsInt(value);
     }
 

@@ -24,6 +24,7 @@ import java.util.function.IntToDoubleFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 import java.util.function.LongBinaryOperator;
+import java.util.function.LongConsumer;
 
 public final class LenientAdapter {
 
@@ -265,6 +266,16 @@ public final class LenientAdapter {
         return (l, r) -> {
             try {
                 return lenient.applyAsLong(l, r);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
+    public static LongConsumer longConsumer(final LenientLongConsumer lenient) {
+        return l -> {
+            try {
+                lenient.accept(l);
             } catch (final Exception e) {
                 throw new FunctionalRuntimeException(e);
             }

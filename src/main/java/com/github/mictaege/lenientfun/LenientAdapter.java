@@ -29,6 +29,7 @@ import java.util.function.LongFunction;
 import java.util.function.LongPredicate;
 import java.util.function.LongSupplier;
 import java.util.function.LongToDoubleFunction;
+import java.util.function.LongToIntFunction;
 
 public final class LenientAdapter {
 
@@ -320,6 +321,16 @@ public final class LenientAdapter {
         return l -> {
             try {
                 return lenient.applyAsDouble(l);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
+    public static LongToIntFunction longToIntFunc(final LenientLongToIntFunction lenient) {
+        return l -> {
+            try {
+                return lenient.applyAsInt(l);
             } catch (final Exception e) {
                 throw new FunctionalRuntimeException(e);
             }

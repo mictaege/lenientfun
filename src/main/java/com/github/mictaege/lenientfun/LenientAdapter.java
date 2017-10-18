@@ -398,4 +398,14 @@ public final class LenientAdapter {
         };
     }
 
+    public static <T> ToIntFunction<T> toIntFunc(final LenientToIntFunction<T> lenient) {
+        return t -> {
+            try {
+                return lenient.applyAsInt(t);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
 }

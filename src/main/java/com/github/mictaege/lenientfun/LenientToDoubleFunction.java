@@ -5,6 +5,6 @@ package com.github.mictaege.lenientfun;
 public interface LenientToDoubleFunction<T> {
 
     @SuppressWarnings("squid:S00112")
-    double applyAsDouble(T value)throws Exception;
+    double applyAsDouble(T value) throws Exception;
 
 }

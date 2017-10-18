@@ -1,36 +1,6 @@
 package com.github.mictaege.lenientfun;
 
-import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
-import java.util.function.BiPredicate;
-import java.util.function.BinaryOperator;
-import java.util.function.BooleanSupplier;
-import java.util.function.Consumer;
-import java.util.function.DoubleBinaryOperator;
-import java.util.function.DoubleConsumer;
-import java.util.function.DoubleFunction;
-import java.util.function.DoublePredicate;
-import java.util.function.DoubleSupplier;
-import java.util.function.DoubleToIntFunction;
-import java.util.function.DoubleToLongFunction;
-import java.util.function.DoubleUnaryOperator;
-import java.util.function.Function;
-import java.util.function.IntBinaryOperator;
-import java.util.function.IntConsumer;
-import java.util.function.IntFunction;
-import java.util.function.IntPredicate;
-import java.util.function.IntSupplier;
-import java.util.function.IntToDoubleFunction;
-import java.util.function.IntToLongFunction;
-import java.util.function.IntUnaryOperator;
-import java.util.function.LongBinaryOperator;
-import java.util.function.LongConsumer;
-import java.util.function.LongFunction;
-import java.util.function.LongPredicate;
-import java.util.function.LongSupplier;
-import java.util.function.LongToDoubleFunction;
-import java.util.function.LongToIntFunction;
-import java.util.function.LongUnaryOperator;
+import java.util.function.*;
 
 public final class LenientAdapter {
 
@@ -38,20 +8,20 @@ public final class LenientAdapter {
         super();
     }
 
-    public static <T, U> BiConsumer<T, U> biConsumer(final LenientBiConsumer<T, U> lenient) {
+    public static <T, U, R> BiFunction<T, U, R> biFunc(final LenientBiFunction<T, U, R> lenient) {
         return (t, u) -> {
             try {
-                lenient.accept(t, u);
+                return lenient.apply(t, u);
             } catch (final Exception e) {
                 throw new FunctionalRuntimeException(e);
             }
         };
     }
 
-    public static <T, U, R> BiFunction<T, U, R> biFunc(final LenientBiFunction<T, U, R> lenient) {
+    public static <T, U> BiConsumer<T, U> biConsumer(final LenientBiConsumer<T, U> lenient) {
         return (t, u) -> {
             try {
-                return lenient.apply(t, u);
+                lenient.accept(t, u);
             } catch (final Exception e) {
                 throw new FunctionalRuntimeException(e);
             }
@@ -342,6 +312,16 @@ public final class LenientAdapter {
         return l -> {
             try {
                 return lenient.applyAsLong(l);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
+    public static <T> ObjDoubleConsumer<T> objDoubleConsumer(final LenientObjDoubleConsumer<T> lenient) {
+        return (t, d) -> {
+            try {
+                lenient.accept(t, d);
             } catch (final Exception e) {
                 throw new FunctionalRuntimeException(e);
             }

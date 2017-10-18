@@ -408,4 +408,14 @@ public final class LenientAdapter {
         };
     }
 
+    public static <T, U> ToLongBiFunction<T, U> toLongBiFunc(final LenientToLongBiFunction<T, U> lenient) {
+        return (t, u) -> {
+            try {
+                return lenient.applyAsLong(t, u);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
 }

@@ -348,4 +348,14 @@ public final class LenientAdapter {
         };
     }
 
+    public static Predicate predicate(final LenientPredicate lenient) {
+        return t -> {
+            try {
+                return lenient.test(t);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
 }

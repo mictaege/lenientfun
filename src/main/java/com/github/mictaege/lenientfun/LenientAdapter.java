@@ -328,4 +328,14 @@ public final class LenientAdapter {
         };
     }
 
+    public static <T> ObjIntConsumer<T> objIntConsumer(final LenientObjIntConsumer<T> lenient) {
+        return (t, i) -> {
+            try {
+                lenient.accept(t, i);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
 }

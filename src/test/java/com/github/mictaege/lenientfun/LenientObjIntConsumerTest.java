@@ -40,7 +40,7 @@ public class LenientObjIntConsumerTest {
     @Test
     public void shouldAdaptLenientObjIntConsumer() {
         feedJavaObjIntConsumer(value0, 5, objIntConsumer((v, i) -> {
-            v.add(5);
+            v.add(i);
         }));
 
         verify(value0).add(5);

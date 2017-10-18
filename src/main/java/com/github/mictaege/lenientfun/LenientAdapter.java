@@ -338,4 +338,14 @@ public final class LenientAdapter {
         };
     }
 
+    public static <T> ObjLongConsumer<T> objLongConsumer(final LenientObjLongConsumer<T> lenient) {
+        return (t, l) -> {
+            try {
+                lenient.accept(t, l);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
 }

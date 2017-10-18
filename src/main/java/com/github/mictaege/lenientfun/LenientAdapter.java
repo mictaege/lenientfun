@@ -378,4 +378,14 @@ public final class LenientAdapter {
         };
     }
 
+    public static <T> ToDoubleFunction<T> toDoubleFunc(final LenientToDoubleFunction<T> lenient) {
+        return t -> {
+            try {
+                return lenient.applyAsDouble(t);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
 }

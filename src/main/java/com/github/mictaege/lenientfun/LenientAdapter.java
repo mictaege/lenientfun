@@ -358,4 +358,14 @@ public final class LenientAdapter {
         };
     }
 
+    public static <T> Supplier<T> supplier(final LenientSupplier<T> lenient) {
+        return () -> {
+            try {
+                return lenient.get();
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
 }

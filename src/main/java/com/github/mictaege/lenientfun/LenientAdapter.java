@@ -388,4 +388,14 @@ public final class LenientAdapter {
         };
     }
 
+    public static <T, U> ToIntBiFunction<T, U> toIntBiFunc(final LenientToIntBiFunction<T, U> lenient) {
+        return (t, u) -> {
+            try {
+                return lenient.applyAsInt(t, u);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
+        };
+    }
+
 }

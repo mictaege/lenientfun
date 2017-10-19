@@ -1,14 +1,23 @@
 # lenientfun
 
 [![Apache License 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.mictaege/lenientfun.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.github.mictaege%22%20AND%20a%3A%22lenientfun%22)
 [![Build Status](https://travis-ci.org/mictaege/lenientfun.svg?branch=develop)](https://travis-ci.org/mictaege/lenientfun)
 [![Quality Gate](https://sonarcloud.io/api/badges/gate?key=com.github.mictaege.lenientfun%3Adevelop)](https://sonarcloud.io/dashboard/index/com.github.mictaege.lenientfun%3Adevelop)
 
 In order to delegate the burden of exception handling from an API user to an API provider, this is a rewritten version of the Java functional interfaces with checked exceptions signatures.
 
+- [lenientfun](#lenientfun)
+    - [Problem](#problem)
+    - [Solution](#solution)
+    - [Conclusion](#conclusion)
+    - [Installation](#installation)
+
 In Java 8 lambda expressions and method references has been introduced in order to facilitate a functional programming style. This way a lot of problems could be solved in a far more short and concise way. But problems arise if exception handling comes into play and readability is quickly lost. The main reason for this is that Javas functional interfaces - such as _Function_, _Consumer_, _Supplier_ etc. - does not declare any exception in their signatures, which leads to a situation that 
 - all checked exceptions has to be handled inside the lambda expression
 - no method reference could be used for a method that declares a checked exception
+
+
 
 ## Problem
 
@@ -110,4 +119,23 @@ final String json = converter.convert(person, LenientAdapter.func(p -> "{\n" + /
     "  \"surName\": \"" + p.getSurName() + "\",\n" +
     "  \"birthDay\": \"" + p.formatedBirthday() + "\"\n" + // throws checked exception
     "}"));
+```
+
+## Installation
+
+From **Maven Central** with the following artifact coordinates
+
+**Maven**
+```Xml
+<dependency>
+    <groupId>com.github.mictaege</groupId>
+    <artifactId>lenientfun</artifactId>
+    <version>x.x</version>
+</dependency>
+```
+**Gradle**
+```
+dependencies {
+    compile 'com.github.mictaege:lenientfun:x.x'
+}
 ```

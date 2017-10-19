@@ -4,6 +4,8 @@ plugins {
 
 apply plugin: 'java'
 apply plugin: 'jacoco'
+apply plugin: 'maven'
+apply plugin: 'signing'
 
 group 'com.github.mictaege'
 archivesBaseName = project.name
@@ -24,5 +26,67 @@ sonarqube {
     properties {
         property "sonar.projectName", "com.github.mictaege.lenientfun"
         property "sonar.projectKey", "com.github.mictaege.lenientfun"
+    }
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    required { gradle.taskGraph.hasTask("uploadArchives") } //sign only when upload archives
+    sign configurations.archives
+}
+
+//don't refer to username and pwd directly so it could be executed in another environment with another _gradle.properties_
+String publishUsername = hasProperty("ossrhUsername") ? property("ossrhUsername") : ""
+String publishPassword = hasProperty("ossrhPassword") ? property("ossrhPassword") : ""
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: publishUsername, password: publishPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: publishUsername, password: publishPassword)
+            }
+
+            pom.project {
+                name 'lenientfun'
+                packaging 'jar'
+                description 'A rewritten version of the Java functional interfaces in order to ignore exception handling in lambdas'
+                url 'https://github.com/mictaege/lenientfun'
+                scm {
+                    connection 'https://github.com/mictaege/lenientfun.git'
+                    url 'https://github.com/mictaege/lenientfun'
+                }
+                licenses {
+                    license {
+                        name 'Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'mictaege'
+                        name 'Michael Taege'
+                    }
+                }
+            }
+        }
     }
 }

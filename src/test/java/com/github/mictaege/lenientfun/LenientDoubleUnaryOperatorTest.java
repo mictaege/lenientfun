@@ -91,6 +91,22 @@ public class LenientDoubleUnaryOperatorTest {
     }
 
     @Test
+    public void shouldUseLenientOperatorInJava() {
+        final LenientDoubleUnaryOperator lenient = v -> v * 2;
+        final double result = feedJavaDoubleUnaryOperator(1.0, lenient);
+
+        assertThat(result, is(2.0));
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientOperatorInJava() {
+        final LenientDoubleUnaryOperator lenient = v -> {
+            throw new Exception();
+        };
+        feedJavaDoubleUnaryOperator(1.0, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientOperator() {
         final double result = feedJavaDoubleUnaryOperator(1.0, doubleUnaryOp(v -> v * 2));
 

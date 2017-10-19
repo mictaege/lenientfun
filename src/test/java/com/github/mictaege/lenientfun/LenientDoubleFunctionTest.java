@@ -38,6 +38,22 @@ public class LenientDoubleFunctionTest {
     }
 
     @Test
+    public void shouldUseLenientFunctionInJava() {
+        final LenientDoubleFunction<Boolean> lenient = d -> value0.add(d);
+        feedJavaDoubleFunction(5.0, lenient);
+
+        verify(value0).add(5.0);
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientFunctionInJava() {
+        final LenientDoubleFunction<Object> lenient = d -> {
+            throw new Exception();
+        };
+        feedJavaDoubleFunction(5.0, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientFunction() {
         feedJavaDoubleFunction(5.0, doubleFunc(d -> value0.add(d)));
 

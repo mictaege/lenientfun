@@ -65,6 +65,22 @@ public class LenientDoubleConsumerTest {
     }
 
     @Test
+    public void shouldUseLenientConsumerInJava() {
+        final LenientDoubleConsumer lenient = d -> value0.add(d);
+        feedJavaDoubleConsumer(5.0, lenient);
+
+        verify(value0).add(5.0);
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientConsumerInJava() {
+        final LenientDoubleConsumer lenient = d -> {
+            throw new Exception();
+        };
+        feedJavaDoubleConsumer(5.0, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientConsumer() {
         feedJavaDoubleConsumer(5.0, doubleConsumer(d -> value0.add(d)));
 

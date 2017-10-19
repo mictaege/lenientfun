@@ -113,6 +113,22 @@ public class LenientDoublePredicateTest {
     }
 
     @Test
+    public void shouldUseLenientDoublePredicateInJava() {
+        final LenientDoublePredicate lenient = d -> value0.contains(d);
+        feedJavaDoublePredicate(5.0, lenient);
+
+        verify(value0).contains(5.0);
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientBiPredicateInJava() {
+        final LenientDoublePredicate lenient = d -> {
+            throw new Exception();
+        };
+        feedJavaDoublePredicate(5.0, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientDoublePredicate() {
         feedJavaDoublePredicate(5.0, doublePredicate(d -> value0.contains(d)));
 

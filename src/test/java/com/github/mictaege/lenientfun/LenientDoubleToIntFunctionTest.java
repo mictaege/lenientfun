@@ -25,6 +25,22 @@ public class LenientDoubleToIntFunctionTest {
     }
 
     @Test
+    public void shouldUseLenientFunctionInJava() {
+        final LenientDoubleToIntFunction lenient = d -> ((Double) d).intValue();
+        final int result = feedJavaDoubleToIntFunction(5.0, lenient);
+
+        assertThat(result, is(5));
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientFunctionInJava() {
+        final LenientDoubleToIntFunction lenient = d -> {
+            throw new Exception();
+        };
+        feedJavaDoubleToIntFunction(5.0, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientFunction() {
         final int result = feedJavaDoubleToIntFunction(5.0, doubleToIntFunc(d -> ((Double)d).intValue()));
 

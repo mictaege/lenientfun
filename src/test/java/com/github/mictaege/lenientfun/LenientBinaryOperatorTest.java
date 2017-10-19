@@ -21,8 +21,6 @@ public class LenientBinaryOperatorTest {
     private List value0;
     @Mock
     private List value1;
-    @Mock
-    private Object element;
 
     @Before
     public void before() {
@@ -108,6 +106,28 @@ public class LenientBinaryOperatorTest {
 
         verify(value0).size();
         verify(value1).size();
+    }
+
+    @Test
+    public void shouldUseLenientBinaryOperatorInJava() {
+        final LenientBinaryOperator<List> lenient = (v0, v1) -> {
+            final List sum = new ArrayList();
+            sum.add(v0.size());
+            sum.add(v1.size());
+            return sum;
+        };
+        feedJavaBinaryOperator(value0, value1, lenient);
+
+        verify(value0).size();
+        verify(value1).size();
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientBinaryOperatorInJava() {
+        final LenientBinaryOperator<List> lenient = (v0, v1) -> {
+            throw new Exception();
+        };
+        feedJavaBinaryOperator(value0, value1, lenient);
     }
 
     @Test

@@ -117,6 +117,23 @@ public class LenientBiPredicateTest {
     }
 
     @Test
+    public void shouldUseLenientBiPredicateInJava() {
+        final LenientBiPredicate<List, List> lenient = (v0, v1) -> v0.size() < v1.size();
+        feedJavaBiPredicate(value0, value1, lenient);
+
+        verify(value0).size();
+        verify(value1).size();
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientBiPredicateInJava() {
+        final LenientBiPredicate<List, List> lenient = (v0, v1) -> {
+            throw new Exception();
+        };
+        feedJavaBiPredicate(value0, value1, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientBiPredicate() {
         feedJavaBiPredicate(value0, value1, biPredicate((v0, v1) -> v0.size() < v1.size()));
 

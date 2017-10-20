@@ -65,6 +65,22 @@ public class LenientLongConsumerTest {
     }
 
     @Test
+    public void shouldUseLenientConsumerInJava() {
+        final LenientLongConsumer lenient = l -> value0.add(l);
+        feedJavaLongConsumer(5L, lenient);
+
+        verify(value0).add(5L);
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientConsumerInJava() {
+        final LenientLongConsumer lenient = l -> {
+            throw new Exception();
+        };
+        feedJavaLongConsumer(5L, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientConsumer() {
         feedJavaLongConsumer(5L, longConsumer(l -> value0.add(l)));
 

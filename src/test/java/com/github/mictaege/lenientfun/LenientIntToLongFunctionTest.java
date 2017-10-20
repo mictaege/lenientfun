@@ -25,6 +25,22 @@ public class LenientIntToLongFunctionTest {
     }
 
     @Test
+    public void shouldUseLenientFunctionInJava() {
+        final LenientIntToLongFunction lenient = i -> ((Integer) i).longValue();
+        final long result = feedJavaIntToLongFunction(5, lenient);
+
+        assertThat(result, is(5L));
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientFunctionInJava() {
+        final LenientIntToLongFunction lenient = i -> {
+            throw new Exception();
+        };
+        feedJavaIntToLongFunction(5, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientFunction() {
         final long result = feedJavaIntToLongFunction(5, intToLongFunc(i -> ((Integer)i).longValue()));
 

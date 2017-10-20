@@ -38,6 +38,24 @@ public class LenientObjDoubleConsumerTest {
     }
 
     @Test
+    public void shouldUseLenientObjDoubleConsumerInJava() {
+        final LenientObjDoubleConsumer<List<Double>> lenient = (v, d) -> {
+            v.add(5.0);
+        };
+        feedJavaObjDoubleConsumer(value0, 5.0, lenient);
+
+        verify(value0).add(5.0);
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientObjDoubleConsumerInJava() {
+        final LenientObjDoubleConsumer<List<Double>> lenient = (v, d) -> {
+            throw new Exception();
+        };
+        feedJavaObjDoubleConsumer(value0, 5.0, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientObjDoubleConsumer() {
         feedJavaObjDoubleConsumer(value0, 5.0, objDoubleConsumer((v, d) -> {
             v.add(5.0);

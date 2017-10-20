@@ -1,10 +1,21 @@
 package com.github.mictaege.lenientfun;
 
+import java.util.function.LongToDoubleFunction;
+
 /** @see java.util.function.LongToDoubleFunction */
 @FunctionalInterface
-public interface LenientLongToDoubleFunction {
+public interface LenientLongToDoubleFunction extends LongToDoubleFunction {
 
     @SuppressWarnings("squid:S00112")
-    double applyAsDouble(long value) throws Exception;
+    double applyAsDoubleLenient(long value) throws Exception;
+
+    @Override
+    default double applyAsDouble(final long value) {
+        try {
+            return applyAsDoubleLenient(value);
+        } catch (final Exception e) {
+            throw new FunctionalRuntimeException(e);
+        }
+    }
 
 }

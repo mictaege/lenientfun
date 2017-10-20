@@ -38,6 +38,22 @@ public class LenientIntFunctionTest {
     }
 
     @Test
+    public void shouldUseLenientFunctionInJava() {
+        final LenientIntFunction<Boolean> lenient = i -> value0.add(i);
+        feedJavaIntFunction(5, lenient);
+
+        verify(value0).add(5);
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientFunctionInJava() {
+        final LenientIntFunction<Object> lenient = i -> {
+            throw new Exception();
+        };
+        feedJavaIntFunction(5, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientFunction() {
         feedJavaIntFunction(5, intFunc(i -> value0.add(i)));
 

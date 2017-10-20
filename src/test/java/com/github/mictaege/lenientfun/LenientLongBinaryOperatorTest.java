@@ -32,6 +32,22 @@ public class LenientLongBinaryOperatorTest {
     }
 
     @Test
+    public void shouldUseLenientOperatorInJava() {
+        final LenientLongBinaryOperator lenient = (l, r) -> l + r;
+        final long result = feedJavaLongBinaryOperator(1L, 2L, lenient);
+
+        assertThat(result, is(3L));
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientOperatorInJava() {
+        final LenientLongBinaryOperator lenient = (l, r) -> {
+            throw new Exception();
+        };
+        feedJavaLongBinaryOperator(1L, 2L, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientOperator() {
         final long result = feedJavaLongBinaryOperator(1L, 2L, longBinOp((l, r) -> l + r));
 

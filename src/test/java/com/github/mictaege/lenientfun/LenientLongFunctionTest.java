@@ -38,6 +38,22 @@ public class LenientLongFunctionTest {
     }
 
     @Test
+    public void shouldUseLenientFunctionInJava() {
+        final LenientLongFunction<Boolean> lenient = i -> value0.add(i);
+        feedJavaLongFunction(5L, lenient);
+
+        verify(value0).add(5L);
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientFunctionInJava() {
+        final LenientLongFunction<Object> lenient = i -> {
+            throw new Exception();
+        };
+        feedJavaLongFunction(5L, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientFunction() {
         feedJavaLongFunction(5L, longFunc(i -> value0.add(i)));
 

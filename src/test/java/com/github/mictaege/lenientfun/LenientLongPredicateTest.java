@@ -113,6 +113,22 @@ public class LenientLongPredicateTest {
     }
 
     @Test
+    public void shouldUseLenientLongPredicateInJava() {
+        final LenientLongPredicate lenient = l -> value0.contains(l);
+        feedJavaLongPredicate(5L, lenient);
+
+        verify(value0).contains(5L);
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientBiPredicateInJava() {
+        final LenientLongPredicate lenient = l -> {
+            throw new Exception();
+        };
+        feedJavaLongPredicate(5L, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientLongPredicate() {
         feedJavaLongPredicate(5L, longPredicate(l -> value0.contains(l)));
 

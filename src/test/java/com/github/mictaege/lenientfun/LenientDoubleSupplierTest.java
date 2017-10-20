@@ -36,6 +36,22 @@ public class LenientDoubleSupplierTest {
     }
 
     @Test
+    public void shouldUseLenientSupplierInJava() {
+        final LenientDoubleSupplier lenient = () -> value.size();
+        askJavaDoubleSupplier(lenient);
+
+        verify(value).size();
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientSupplierInJava() {
+        final LenientDoubleSupplier lenient = () -> {
+            throw new Exception();
+        };
+        askJavaDoubleSupplier(lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientSupplier() {
         askJavaDoubleSupplier(doubleSupplier(() -> value.size()));
 

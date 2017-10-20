@@ -83,6 +83,26 @@ public class LenientBiConsumerTest {
     }
 
     @Test
+    public void shouldUseLenientBiConsumerInJava() {
+        final LenientBiConsumer<List, List> lenient = (v0, v1) -> {
+            v0.size();
+            v1.size();
+        };
+        feedJavaBiConsumer(value0, value1, lenient);
+
+        verify(value0).size();
+        verify(value1).size();
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientBiConsumerInJava() {
+        final LenientBiConsumer<List, List> lenient = (v0, v1) -> {
+            throw new Exception();
+        };
+        feedJavaBiConsumer(value0, value1, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientBiConsumer() {
         feedJavaBiConsumer(value0, value1, biConsumer((v0, v1) -> {
             v0.size();

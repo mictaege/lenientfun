@@ -39,6 +39,23 @@ public class LenientToIntBiFunctionTest {
     }
 
     @Test
+    public void shouldUseLenientToIntBiFunctionInJava() {
+        final LenientToIntBiFunction<List, List> lenient = (v0, v1) -> v0.size() + v1.size();
+        feedJavaToIntBiFunction(value0, value1, lenient);
+
+        verify(value0).size();
+        verify(value1).size();
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientToIntBiFunctionInJava() {
+        final LenientToIntBiFunction<List, List> lenient = (v0, v1) -> {
+            throw new Exception();
+        };
+        feedJavaToIntBiFunction(value0, value1, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientToIntBiFunction() {
         feedJavaToIntBiFunction(value0, value1, toIntBiFunc((v0, v1) -> v0.size() + v1.size()));
 

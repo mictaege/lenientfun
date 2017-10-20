@@ -36,6 +36,22 @@ public class LenientIntSupplierTest {
     }
 
     @Test
+    public void shouldUseLenientSupplierInJava() {
+        final LenientIntSupplier lenient = () -> value.size();
+        askJavaIntSupplier(lenient);
+
+        verify(value).size();
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientSupplierInJava() {
+        final LenientIntSupplier lenient = () -> {
+            throw new Exception();
+        };
+        askJavaIntSupplier(lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientSupplier() {
         askJavaIntSupplier(intSupplier(() -> value.size()));
 

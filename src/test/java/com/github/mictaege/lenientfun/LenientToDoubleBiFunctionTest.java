@@ -39,6 +39,23 @@ public class LenientToDoubleBiFunctionTest {
     }
 
     @Test
+    public void shouldUseLenientToDoubleBiFunctionInJava() {
+        final LenientToDoubleBiFunction<List, List> lenient = (v0, v1) -> (v0.size() + v1.size()) * 2.0;
+        feedJavaToDoubleBiFunction(value0, value1, lenient);
+
+        verify(value0).size();
+        verify(value1).size();
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientToDoubleBiFunctionInJava() {
+        final LenientToDoubleBiFunction<List, List> lenient = (v0, v1) -> {
+            throw new Exception();
+        };
+        feedJavaToDoubleBiFunction(value0, value1, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientToDoubleBiFunction() {
         feedJavaToDoubleBiFunction(value0, value1, toDoubleBiFunc((v0, v1) -> (v0.size() + v1.size()) * 2.0));
 

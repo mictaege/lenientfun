@@ -39,6 +39,22 @@ public class LenientUnaryOperatorTest {
     }
 
     @Test
+    public void shouldUseLenientOperatorInJava() {
+        final LenientUnaryOperator<Integer> lenient = v -> v * 2;
+        final int result = feedJavaUnaryOperator(1, lenient);
+
+        assertThat(result, is(2));
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientOperatorInJava() {
+        final LenientUnaryOperator<Integer> lenient = v -> {
+            throw new Exception();
+        };
+        feedJavaUnaryOperator(1, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientOperator() {
         final int result = feedJavaUnaryOperator(1, unaryOp(v -> v * 2));
 

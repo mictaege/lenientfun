@@ -38,6 +38,24 @@ public class LenientObjIntConsumerTest {
     }
 
     @Test
+    public void shouldUseLenientObjIntConsumerInJava() {
+        final LenientObjIntConsumer<List<Integer>> lenient = (v, i) -> {
+            v.add(i);
+        };
+        feedJavaObjIntConsumer(value0, 5, lenient);
+
+        verify(value0).add(5);
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientObjIntConsumerInJava() {
+        final LenientObjIntConsumer<List<Integer>> lenient = (v, i) -> {
+            throw new Exception();
+        };
+        feedJavaObjIntConsumer(value0, 5, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientObjIntConsumer() {
         feedJavaObjIntConsumer(value0, 5, objIntConsumer((v, i) -> {
             v.add(i);

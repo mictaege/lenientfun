@@ -9,423 +9,171 @@ public final class LenientAdapter {
     }
 
     public static <T, U, R> BiFunction<T, U, R> biFunc(final LenientBiFunction<T, U, R> lenient) {
-        return (t, u) -> {
-            try {
-                return lenient.apply(t, u);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static <T, U> BiConsumer<T, U> biConsumer(final LenientBiConsumer<T, U> lenient) {
-        return (t, u) -> {
-            try {
-                lenient.accept(t, u);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static <T> BinaryOperator<T> binOp(final LenientBinaryOperator<T> lenient) {
-        return (t, u) -> {
-            try {
-                return lenient.apply(t, u);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static <T, U> BiPredicate<T, U> biPredicate(final LenientBiPredicate<T, U> lenient) {
-        return (t, u) -> {
-            try {
-                return lenient.test(t, u);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static BooleanSupplier boolSupplier(final LenientBooleanSupplier lenient) {
-        return () -> {
-            try {
-                return lenient.getAsBoolean();
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static <T> Consumer<T> consumer(final LenientConsumer<T> lenient) {
-        return t -> {
-            try {
-                lenient.accept(t);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static DoubleBinaryOperator doubleBinOp(final LenientDoubleBinaryOperator lenient) {
-        return (l, r) -> {
-            try {
-                return lenient.applyAsDouble(l, r);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static DoubleConsumer doubleConsumer(final LenientDoubleConsumer lenient) {
-        return d -> {
-            try {
-                lenient.accept(d);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static <R> DoubleFunction<R> doubleFunc(final LenientDoubleFunction<R> lenient) {
-        return d -> {
-            try {
-                return lenient.apply(d);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static DoublePredicate doublePredicate(final LenientDoublePredicate lenient) {
-        return d -> {
-            try {
-                return lenient.test(d);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static DoubleSupplier doubleSupplier(final LenientDoubleSupplier lenient) {
-        return () -> {
-            try {
-                return lenient.getAsDouble();
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static DoubleToIntFunction doubleToIntFunc(final LenientDoubleToIntFunction lenient) {
-        return d -> {
-            try {
-                return lenient.applyAsInt(d);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static DoubleToLongFunction doubleToLongFunc(final LenientDoubleToLongFunction lenient) {
-        return d -> {
-            try {
-                return lenient.applyAsLong(d);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static DoubleUnaryOperator doubleUnaryOp(final LenientDoubleUnaryOperator lenient) {
-        return d -> {
-            try {
-                return lenient.applyAsDouble(d);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static <T, R> Function<T, R> func(final LenientFunction<T, R> lenient) {
-        return t -> {
-            try {
-                return lenient.apply(t);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static IntBinaryOperator intBinOp(final LenientIntBinaryOperator lenient) {
-        return (l, r) -> {
-            try {
-                return lenient.applyAsInt(l, r);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static IntConsumer intConsumer(final LenientIntConsumer lenient) {
-        return i -> {
-            try {
-                lenient.accept(i);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static <R> IntFunction<R> intFunc(final LenientIntFunction<R> lenient) {
-        return i -> {
-            try {
-                return lenient.apply(i);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static IntPredicate intPredicate(final LenientIntPredicate lenient) {
-        return i -> {
-            try {
-                return lenient.test(i);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static IntSupplier intSupplier(final LenientIntSupplier lenient) {
-        return () -> {
-            try {
-                return lenient.getAsInt();
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static IntToDoubleFunction intToDoubleFunc(final LenientIntToDoubleFunction lenient) {
-        return i -> {
-            try {
-                return lenient.applyAsDouble(i);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static IntToLongFunction intToLongFunc(final LenientIntToLongFunction lenient) {
-        return i -> {
-            try {
-                return lenient.applyAsLong(i);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static IntUnaryOperator intUnaryOp(final LenientIntUnaryOperator lenient) {
-        return i -> {
-            try {
-                return lenient.applyAsInt(i);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static LongBinaryOperator longBinOp(final LenientLongBinaryOperator lenient) {
-        return (l, r) -> {
-            try {
-                return lenient.applyAsLong(l, r);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static LongConsumer longConsumer(final LenientLongConsumer lenient) {
-        return l -> {
-            try {
-                lenient.accept(l);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static <R> LongFunction<R> longFunc(final LenientLongFunction<R> lenient) {
-        return l -> {
-            try {
-                return lenient.apply(l);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static LongPredicate longPredicate(final LenientLongPredicate lenient) {
-        return l -> {
-            try {
-                return lenient.test(l);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static LongSupplier longSupplier(final LenientLongSupplier lenient) {
-        return () -> {
-            try {
-                return lenient.getAsLong();
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static LongToDoubleFunction longToDoubleFunc(final LenientLongToDoubleFunction lenient) {
-        return l -> {
-            try {
-                return lenient.applyAsDouble(l);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static LongToIntFunction longToIntFunc(final LenientLongToIntFunction lenient) {
-        return l -> {
-            try {
-                return lenient.applyAsInt(l);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static LongUnaryOperator longUnaryOp(final LenientLongUnaryOperator lenient) {
-        return l -> {
-            try {
-                return lenient.applyAsLong(l);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static <T> ObjDoubleConsumer<T> objDoubleConsumer(final LenientObjDoubleConsumer<T> lenient) {
-        return (t, d) -> {
-            try {
-                lenient.accept(t, d);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static <T> ObjIntConsumer<T> objIntConsumer(final LenientObjIntConsumer<T> lenient) {
-        return (t, i) -> {
-            try {
-                lenient.accept(t, i);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static <T> ObjLongConsumer<T> objLongConsumer(final LenientObjLongConsumer<T> lenient) {
-        return (t, l) -> {
-            try {
-                lenient.accept(t, l);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static Predicate predicate(final LenientPredicate lenient) {
-        return t -> {
-            try {
-                return lenient.test(t);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static <T> Supplier<T> supplier(final LenientSupplier<T> lenient) {
-        return () -> {
-            try {
-                return lenient.get();
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static <T, U> ToDoubleBiFunction<T, U> toDoubleBiFunc(final LenientToDoubleBiFunction<T, U> lenient) {
-        return (t, u) -> {
-            try {
-                return lenient.applyAsDouble(t, u);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static <T> ToDoubleFunction<T> toDoubleFunc(final LenientToDoubleFunction<T> lenient) {
-        return t -> {
-            try {
-                return lenient.applyAsDouble(t);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static <T, U> ToIntBiFunction<T, U> toIntBiFunc(final LenientToIntBiFunction<T, U> lenient) {
-        return (t, u) -> {
-            try {
-                return lenient.applyAsInt(t, u);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static <T> ToIntFunction<T> toIntFunc(final LenientToIntFunction<T> lenient) {
-        return t -> {
-            try {
-                return lenient.applyAsInt(t);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static <T, U> ToLongBiFunction<T, U> toLongBiFunc(final LenientToLongBiFunction<T, U> lenient) {
-        return (t, u) -> {
-            try {
-                return lenient.applyAsLong(t, u);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
     public static <T> UnaryOperator<T> unaryOp(final LenientUnaryOperator<T> lenient) {
-        return t -> {
-            try {
-                return lenient.apply(t);
-            } catch (final Exception e) {
-                throw new FunctionalRuntimeException(e);
-            }
-        };
+        return lenient;
     }
 
 }

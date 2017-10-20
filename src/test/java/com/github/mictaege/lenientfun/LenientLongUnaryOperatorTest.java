@@ -91,6 +91,22 @@ public class LenientLongUnaryOperatorTest {
     }
 
     @Test
+    public void shouldUseLenientOperatorInJava() {
+        final LenientLongUnaryOperator lenient = v -> v * 2;
+        final long result = feedJavaLongUnaryOperator(1L, lenient);
+
+        assertThat(result, is(2L));
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientOperatorInJava() {
+        final LenientLongUnaryOperator lenient = v -> {
+            throw new Exception();
+        };
+        feedJavaLongUnaryOperator(1L, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientOperator() {
         final long result = feedJavaLongUnaryOperator(1L, longUnaryOp(v -> v * 2));
 

@@ -25,6 +25,22 @@ public class LenientDoubleToLongFunctionTest {
     }
 
     @Test
+    public void shouldUseLenientFunctionInJava() {
+        final LenientDoubleToLongFunction lenient = d -> ((Double) d).longValue();
+        final long result = feedJavaDoubleToLongFunction(5.0, lenient);
+
+        assertThat(result, is(5L));
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientFunctionInJava() {
+        final LenientDoubleToLongFunction lenient = d -> {
+            throw new Exception();
+        };
+        feedJavaDoubleToLongFunction(5.0, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientFunction() {
         final long result = feedJavaDoubleToLongFunction(5.0, doubleToLongFunc(d -> ((Double)d).longValue()));
 

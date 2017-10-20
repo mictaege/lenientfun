@@ -38,6 +38,24 @@ public class LenientObjLongConsumerTest {
     }
 
     @Test
+    public void shouldUseLenientObjLongConsumerInJava() {
+        final LenientObjLongConsumer<List<Long>> lenient = (v, l) -> {
+            v.add(l);
+        };
+        feedJavaObjLongConsumer(value0, 5L, lenient);
+
+        verify(value0).add(5L);
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientObjLongConsumerInJava() {
+        final LenientObjLongConsumer<List<Long>> lenient = (v, l) -> {
+            throw new Exception();
+        };
+        feedJavaObjLongConsumer(value0, 5L, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientObjLongConsumer() {
         feedJavaObjLongConsumer(value0, 5L, objLongConsumer((v, l) -> {
             v.add(l);

@@ -107,6 +107,22 @@ public class LenientFunctionTest {
     }
 
     @Test
+    public void shouldUseLenientFunctionInJava() {
+        final LenientFunction<ArrayList, Iterator> function = List::iterator;
+        feedJavaFunction(value, function);
+
+        verify(value).iterator();
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientFunctionInJava() {
+        final LenientFunction<ArrayList, Object> lenient = v -> {
+            throw new Exception();
+        };
+        feedJavaFunction(value, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientFunction() {
         feedJavaFunction(value, func(List::iterator));
 

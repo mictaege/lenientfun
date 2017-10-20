@@ -113,6 +113,22 @@ public class LenientIntPredicateTest {
     }
 
     @Test
+    public void shouldUseLenientIntPredicateInJaca() {
+        final LenientIntPredicate lenient = i -> value0.contains(i);
+        feedJavaIntPredicate(5, lenient);
+
+        verify(value0).contains(5);
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientBiPredicateInJava() {
+        final LenientIntPredicate lenient = i -> {
+            throw new Exception();
+        };
+        feedJavaIntPredicate(5, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientIntPredicate() {
         feedJavaIntPredicate(5, intPredicate(i -> value0.contains(i)));
 

@@ -35,6 +35,22 @@ public class LenientToDoubleFunctionTest {
     }
 
     @Test
+    public void shouldUseLenientToDoubleFunctionInJava() {
+        final LenientToDoubleFunction<List> lenient = v -> v.size() * 2.0;
+        feedJavaToDoubleFunction(value, lenient);
+
+        verify(value).size();
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientToDoubleFunctionInJava() {
+        final LenientToDoubleFunction<List> lenient = v -> {
+            throw new Exception();
+        };
+        feedJavaToDoubleFunction(value, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientToDoubleFunction() {
         feedJavaToDoubleFunction(value, toDoubleFunc(v -> v.size() * 2.0));
 

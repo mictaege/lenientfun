@@ -125,6 +125,22 @@ public class LenientPredicateTest {
     }
 
     @Test
+    public void shouldUseLenientPredicateInJava() {
+        final LenientPredicate lenient = i -> value0.contains(i);
+        feedJavaPredicate(5, lenient);
+
+        verify(value0).contains(5);
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientBiPredicateInJava() {
+        final LenientPredicate lenient = i -> {
+            throw new Exception();
+        };
+        feedJavaPredicate(5, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientPredicate() {
         feedJavaPredicate(5, predicate(i -> value0.contains(i)));
 

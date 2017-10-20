@@ -36,6 +36,22 @@ public class LenientLongSupplierTest {
     }
 
     @Test
+    public void shouldUseLenientSupplierInJava() {
+        final LenientLongSupplier lenient = () -> value.size();
+        askJavaLongSupplier(lenient);
+
+        verify(value).size();
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientSupplierInJava() {
+        final LenientLongSupplier lenient = () -> {
+            throw new Exception();
+        };
+        askJavaLongSupplier(lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientSupplier() {
         askJavaLongSupplier(longSupplier(() -> value.size()));
 

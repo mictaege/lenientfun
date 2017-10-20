@@ -63,6 +63,22 @@ public class LenientConsumerTest {
     }
 
     @Test
+    public void shouldUseLenientConsumerInJava() {
+        final LenientConsumer<List> consumer = List::size;
+        feedJavaConsumer(value, consumer);
+
+        verify(value).size();
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientConsumerInJava() {
+        final LenientConsumer<List> lenient = v -> {
+            throw new Exception();
+        };
+        feedJavaConsumer(value, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientConsumer() {
         feedJavaConsumer(value, consumer(List::size));
 

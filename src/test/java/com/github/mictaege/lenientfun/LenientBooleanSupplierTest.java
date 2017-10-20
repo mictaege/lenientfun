@@ -36,6 +36,22 @@ public class LenientBooleanSupplierTest {
     }
 
     @Test
+    public void shouldUseLenientSupplierInJava() {
+        final LenientBooleanSupplier lenient = () -> value.isEmpty();
+        askJavaBooleanSupplier(lenient);
+
+        verify(value).isEmpty();
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientSupplierInJava() {
+        final LenientBooleanSupplier lenient = () -> {
+            throw new Exception();
+        };
+        askJavaBooleanSupplier(lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientSupplier() {
         askJavaBooleanSupplier(boolSupplier(() -> value.isEmpty()));
 

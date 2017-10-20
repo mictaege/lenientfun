@@ -35,6 +35,22 @@ public class LenientToIntFunctionTest {
     }
 
     @Test
+    public void shouldUseLenientToIntFunctionInJava() {
+        final LenientToIntFunction<List> lenient = List::size;
+        feedJavaToIntFunction(value, lenient);
+
+        verify(value).size();
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientToIntFunctionInJava() {
+        final LenientToIntFunction<List> lenient = v -> {
+            throw new Exception();
+        };
+        feedJavaToIntFunction(value, lenient);
+    }
+
+    @Test
     public void shouldAdaptLenientToIntFunction() {
         feedJavaToIntFunction(value, toIntFunc(List::size));
 

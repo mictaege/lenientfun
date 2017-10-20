@@ -1,26 +1,37 @@
 package com.github.mictaege.lenientfun;
 
 import java.util.Objects;
+import java.util.function.Predicate;
 
 /** @see java.util.function.Predicate */
 @FunctionalInterface
-public interface LenientPredicate<T> {
+public interface LenientPredicate<T> extends Predicate<T> {
 
     @SuppressWarnings("squid:S00112")
-    boolean test(T t) throws Exception ;
+    boolean testLenient(T t) throws Exception;
+
+    @Override
+    default boolean test(final T t) {
+        try {
+            return testLenient(t);
+        } catch (final Exception e) {
+            throw new FunctionalRuntimeException(e);
+        }
+    }
 
     default LenientPredicate<T> and(final LenientPredicate<? super T> other) {
         Objects.requireNonNull(other);
-        return t -> test(t) && other.test(t);
+        return t -> testLenient(t) && other.testLenient(t);
     }
 
+    @Override
     default LenientPredicate<T> negate() {
-        return t -> !test(t);
+        return t -> !testLenient(t);
     }
 
     default LenientPredicate<T> or(final LenientPredicate<? super T> other) {
         Objects.requireNonNull(other);
-        return t -> test(t) || other.test(t);
+        return t -> testLenient(t) || other.testLenient(t);
     }
 
     static <T> LenientPredicate<T> isEqual(final Object targetRef) {

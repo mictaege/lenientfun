@@ -66,6 +66,23 @@ public class LenientBiFunctionTest {
     }
 
     @Test
+    public void shouldUseLenientBiFunctionInJava() {
+        final LenientBiFunction<List, List, Integer> lenient = (v0, v1) -> v0.size() + v1.size();
+        feedJavaBiFunction(value0, value1, lenient);
+
+        verify(value0).size();
+        verify(value1).size();
+    }
+
+    @Test(expected = FunctionalRuntimeException.class)
+    public void shouldUseThrowingLenientBiFunctionInJava() {
+        final LenientBiFunction<List, List, Object> lenient = (v0, v1) -> {
+            throw new Exception();
+        };
+        feedJavaBiFunction(value0, value1, biFunc(lenient));
+    }
+
+    @Test
     public void shouldAdaptLenientBiFunction() {
         feedJavaBiFunction(value0, value1, biFunc((v0, v1) -> v0.size() + v1.size()));
 
